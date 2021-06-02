@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 idBusqueda= findViewById(R.id.editTextTextPersonName);
-                find(idBusqueda.getText().toString());
+                consultarconRetrofil(idBusqueda.getText().toString());
             }
         });
         textView.setText("Ingrese un ID en el campo de texto para busca");
@@ -51,14 +51,14 @@ public class MainActivity extends AppCompatActivity {
         Intent miIntent=new Intent(MainActivity.this,MainActivity2.class );
         startActivity(miIntent);
     }
-    private void find(String codigo) {
+    private void consultarconRetrofil(String codigo) {
         textView.setText("");
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://revistas.uteq.edu.ec/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         revistasInterface Jsonresvista = retrofit.create(revistasInterface.class);
 
-        Call<List<revista>> call = Jsonresvista.find(codigo);
+        Call<List<revista>> call = Jsonresvista.consultarconRetrofil(codigo);
         call.enqueue(new Callback<List<revista>>() {
             @Override
             public void onResponse(Call<List<revista>> call, Response<List<revista>> response) {
@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
                 int cont=0;
                 for (revista list : RevistaLis) {
                     String contenido="";
-
                     contenido+="issue_id:"+list.getIssue_id()+"\n";
                     contenido+="volume:"+list.getVolume()+"\n";
                     contenido+="number:"+list.getNumber()+"\n";
@@ -88,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<revista>> call, Throwable t) {
-                textView.setText("Codigo" + t.getMessage());
+                textView.setText("No se cuenta con datos en el registro");
             }
         });
     }

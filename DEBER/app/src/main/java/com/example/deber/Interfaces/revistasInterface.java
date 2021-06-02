@@ -14,6 +14,6 @@ public interface revistasInterface
 {
     @GET("ws/issues.php")
     //public Call<revista> find(@Path("id") String id);
-    public Call<List<revista>> find(@Query("j_id") String id);
+    public Call<List<revista>> consultarconRetrofil(@Query("j_id") String id);
 
 }

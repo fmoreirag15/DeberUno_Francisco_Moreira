@@ -52,7 +52,7 @@ public class ActiVolley extends AppCompatActivity {
             }
         });
         textView.setText("Por favor ingrese un número para buscar la revista");
-        //ListdatosView=(ListView)findViewById(r)
+
 
     }
     private void obtenerDatosConVolley(String codigo)
@@ -96,10 +96,13 @@ public class ActiVolley extends AppCompatActivity {
                                    textView.append(contenido);
                                    cont=0;
                                }
-                               cont++;
+                                cont++;
                                 contenido=datos.get(i)+"\n";
                                 textView.append(contenido);
                             }
+                        }else
+                        {
+                            textView.setText("No hay datos");
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -107,7 +110,7 @@ public class ActiVolley extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO: Handle error
-                        int x=0;
+                        textView.setText("No hay datos");
                     }
                 });
                 //queue.addToRequestQueue(jsonObjectRequest);
